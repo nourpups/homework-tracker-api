@@ -35,6 +35,12 @@ class UserSeeder extends Seeder
         ])
         ->assignRole('teacher');
 
+       User::factory()->create([
+            'name' => 'Ethical Hacker',
+            'email' => 'ethack106@fake.com',
+        ])
+        ->assignRole('student');
+
        User::factory(10)->create()->map(function ($student) {
           $student->assignRole('student');
        });
