@@ -22,7 +22,7 @@ class GroupPolicy
     public function view(User $user, Group $group): bool
     {
         return $user->hasPermissionTo('group_show') &&
-            $group->hasUser($user);
+            $group->hasUser($user->id);
 
     }
 
