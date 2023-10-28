@@ -10,16 +10,13 @@ use App\Models\Group;
 
 class GroupController extends Controller
 {
-    public function __construct()
-    {
-        $this->authorizeResource(Group::class, 'group');
-    }
-
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        $this->authorize('viewAny', [Group::class]);
+
         $user = auth()->user();
         $query = $user->groups();
 
@@ -37,6 +34,16 @@ class GroupController extends Controller
      */
     public function show(Group $group)
     {
+//        dd(
+//            $group->users->pluck('id'),
+//            auth()->id(),
+//            $group->hasUser(auth()->id()),
+//            $group->users()
+//                ->where('user_id', auth()->id())
+//                ->first()
+//        );
+        $this->authorize('view', $group);
+
         $group->load(['teacher', 'students', 'tasks']);
 
         return new GroupResource($group);

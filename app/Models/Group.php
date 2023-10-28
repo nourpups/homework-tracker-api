@@ -41,7 +41,7 @@ class Group extends Model
         return $this->hasMany(Task::class);
     }
 
-    public function hasUser($id)
+    public function hasUser($id): bool
     {
         return $this->users()
             ->where('user_id', $id)
